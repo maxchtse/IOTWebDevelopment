@@ -11,6 +11,7 @@ class SensorReading(models.Model):
     mox = models.IntegerField()
     ch4 = models.IntegerField()
     no2 = models.IntegerField()
+    data_json = models.JSONField()
 
     def __str__(self) -> str:
         return self.name
