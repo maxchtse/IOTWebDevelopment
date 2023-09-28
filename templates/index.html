@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sensor Data Analysis</title>
+</head>
+<body>
+    <h1>Sensor Data Analysis</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Sensor</th>
+                <th>Timestamp</th>
+                <th>Dust</th>
+                <th>TVOC</th>
+                <th>eCO2</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sensor, data in analysis_results.items() %}
+                <tr>
+                    <td>{{ sensor }}</td>
+                    <td>{{ data.timestamp }}</td>
+                    <td>{{ data.Dust }}</td>
+                    <td>{{ data.TVOC }}</td>
+                    <td>{{ data.eCO2 }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+   
+</body>
+</html>
