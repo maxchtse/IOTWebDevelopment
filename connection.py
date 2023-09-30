@@ -1,21 +1,23 @@
-import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import db
-from firebase_admin import initialize_app
+import requests
+import json
 
 
 def get_sensor_data():
-    # Check if the app is already initialized
-    if not firebase_admin._apps:
-        cred = credentials.Certificate("C:\\Users\\tsech\\OneDrive\\Document\\GitHub\\IOTWebDevelopment\\aqms_\\credentials.json")  # Use double backslashes or raw string
-        firebase_admin.initialize_app(cred, {
-            'databaseURL': 'https://aqms-8227c-default-rtdb.asia-southeast1.firebasedatabase.app/'  # Replace with your Firebase Realtime Database URL
-        })
+    databaseURL = "https://cits5506-default-rtdb.firebaseio.com/"
+    endpoint = "/sensorData.json"
+    response = requests.get(databaseURL + endpoint)
+    data = response.json()
 
-    # Reference to your database root
-    ref = db.reference('/sensorData')
+    # Save to testDataset/dataFromFirebase.json
+    with open("testDataset/dataFromFirebase.json", "w") as file:
+        json.dump(data, file)
 
-    # Retrieve data from the database
-    data = ref.get()
+    return get_test_sensor_data()  # for testing only
+    # return data
+
+
+def get_test_sensor_data():
+    with open("testDataset/test.json", "r") as file:
+        data = json.load(file)
 
     return data
