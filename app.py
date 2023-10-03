@@ -46,6 +46,7 @@ def data():
     print(timestamp_ms)
     data = [timestamp_ms, latest_TVOC, latest_eCO2]
     
+    
 
     response = make_response(json.dumps(data))
     response.content_type = "application/json"
