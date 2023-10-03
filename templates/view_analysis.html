@@ -97,21 +97,21 @@
       var chartTemperature;
       var chartHumidity;
       var lastTimestamp = 0; // To keep track of the last fetched data point
-
+/*
       function requestData() {
         // Ajax call to get the Data from Flask
         $.get("/data", function (result) {
           result.forEach((dataPoint) => {
-            var timestamp = dataPoint[0];
+            var timestamp = result[0];
             // Only add data points that are newer than the last timestamp
             if (timestamp > lastTimestamp) {
               chartTemperature.series[0].addPoint(
-                [timestamp, dataPoint[1]],
+                [timestamp, result[1]],
                 true,
                 false,
               );
               chartHumidity.series[0].addPoint(
-                [timestamp, dataPoint[2]],
+                [timestamp, result[2]],
                 true,
                 false,
               );
@@ -130,18 +130,56 @@
           );
 
           // call requestData again after two seconds
-          setTimeout(requestData, 2000);
+          setTimeout(requestData, 5000);
         });
       }
+*/
+function fetchData() {
+  fetch('/data')
+      .then(response => response.json())
+      .then(result => {
+          // Extract timestamp and data from the result
+          var timestamp = result[0];
+          var temperature = result[1];
+          var humidity = result[2];
+          // Only add data points that are newer than the last timestamp
+          if (timestamp > lastTimestamp) {
+              chartTemperature.series[0].addPoint(
+                  [timestamp, temperature],
+                  true,
+                  false
+              );
+              chartHumidity.series[0].addPoint(
+                  [timestamp, humidity],
+                  true,
+                  false
+              );
+
+              // Update the last timestamp
+              lastTimestamp = timestamp;
+          }
+          // Update the displayed sensor values
+          $(".sensor1").text("TVOC : " + Math.round(temperature));
+          $(".sensor2").text("eCO2 : " + Math.round(humidity));
+      })
+      .catch(error => {
+          console.error('Error fetching data:', error);
+      });
+}
+
+// Poll every second
+setInterval(fetchData, 1000);
+
+    
 
       $(document).ready(function () {
         // --------------Chart 1 ----------------------------
-        chartTemperatue = new Highcharts.Chart({
+        chartTemperature = new Highcharts.Chart({
           chart: {
             renderTo: "data-temperature",
             defaultSeriesType: "area",
             events: {
-              load: requestData,
+              load: fetchData,
             },
           },
           title: {
@@ -176,7 +214,7 @@
             renderTo: "data-humidity",
             defaultSeriesType: "area",
             events: {
-              load: requestData,
+              load: fetchData,
             },
           },
           title: {
