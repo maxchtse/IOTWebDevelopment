@@ -74,6 +74,16 @@
       .row {
         justify-content: center;
       }
+
+      .container-fluid {
+        margin-top: 20px;
+        height: 400px; /* Adjust the height according to your preference */
+      }
+      
+      #data-temperature,
+      #data-humidity {
+        height: 100%; /* Ensure the chart container takes 100% height of its parent */
+      }
     </style>
 
     <div class="container-fluid">
@@ -134,39 +144,48 @@
         });
       }
 */
-
+var temperatureDataPoints = [];
+var humidityDataPoints = [];
 
 function fetchData() {
-  fetch('/data')
-      .then(response => response.json())
-      .then(result => {
-          // Extract timestamp and data from the result
-          var timestamp = result[0];
-          var temperature = result[1];
-          var humidity = result[2];
-          // Only add data points that are newer than the last timestamp
-          if (timestamp > lastTimestamp) {
-              chartTemperature.series[0].addPoint(
-                  [timestamp, temperature],
-                  true,
-                  false
-              );
-              chartHumidity.series[0].addPoint(
-                  [timestamp, humidity],
-                  true,
-                  false
-              );
+    fetch('/data')
+        .then(response => response.json())
+        .then(result => {
+            var timestamp = result[0];
+            var temperature = result[1];
+            var humidity = result[2];
 
-              // Update the last timestamp
-              lastTimestamp = timestamp;
-          }
-          // Update the displayed sensor values
+            // Only add data points that are newer than the last timestamp
+            if (timestamp > lastTimestamp) {
+                temperatureDataPoints.push({ x: timestamp, y: temperature });
+                humidityDataPoints.push({ x: timestamp, y: humidity });
+
+                if (temperatureDataPoints.length > 20) {
+                    temperatureDataPoints.shift(); // Remove the first element (oldest data point)
+                }
+
+                if (humidityDataPoints.length > 20) {
+                    humidityDataPoints.shift(); // Remove the first element (oldest data point)
+                }
+
+                // Update the chart with the last 20 data points
+                chartTemperature.xAxis[0].setExtremes(timestamp - 20000, timestamp);
+                chartHumidity.xAxis[0].setExtremes(timestamp - 20000, timestamp);
+                
+                // Update series data
+                chartTemperature.series[0].setData(temperatureDataPoints);
+                chartHumidity.series[0].setData(humidityDataPoints);
+
+                // Update the last timestamp
+                lastTimestamp = timestamp;
+            }
+            // Update the displayed sensor values
           $(".sensor1").text("TVOC : " + Math.round(temperature));
           $(".sensor2").text("eCO2 : " + Math.round(humidity));
-      })
-      .catch(error => {
-          console.error('Error fetching data:', error);
-      });
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
 }
 
 // Poll every second
@@ -244,7 +263,7 @@ setInterval(fetchData, 1000);
           ],
         });
       });
-      requestData();
+      fetchData();
     </script>
 
     <script>

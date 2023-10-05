@@ -24,7 +24,7 @@ def data():
     import json
     data_str = ''
 # Open and read the JSON file
-    with open('/Users/hamzausmani/IOT Project/IOTWebDevelopment/testDataset/test.json', 'r') as file:
+    with open('/Users/hamzausmani/IOT Project/IOTWebDevelopment/generated_data.json', 'r') as file:
         # Load JSON data into a Python dictionary
         data_str = json.load(file)
     
@@ -40,12 +40,12 @@ def data():
     # Prepare data in the required format: [Timestamp, TVOC, eCO2]
     # Convert the timestamp string to a datetime object
     timestamp_dt = datetime.strptime(latest_entry["timestamp"], "%Y-%m-%dT%H:%M:%S%z")
-
+    
     # Convert the datetime object to a timestamp (in milliseconds)
     timestamp_ms = timestamp_dt.timestamp() * 1000
     print(timestamp_ms)
     data = [timestamp_ms, latest_TVOC, latest_eCO2]
-    
+    print(data)
     
 
     response = make_response(json.dumps(data))
