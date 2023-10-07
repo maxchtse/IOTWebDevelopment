@@ -8,12 +8,12 @@ def get_sensor_data():
     response = requests.get(databaseURL + endpoint)
     data = response.json()
 
-    # Save to testDataset/dataFromFirebase.json
-    with open("testDataset/dataFromFirebase.json", "w") as file:
-        json.dump(data, file)
+    # # Save to testDataset/dataFromFirebase.json
+    # with open("testDataset/dataFromFirebase.json", "w") as file:
+    #     json.dump(data, file)
 
-    return get_test_sensor_data()  # for testing only
-    # return data
+    # return get_test_sensor_data()  # for testing only
+    return data
 
 
 def get_test_sensor_data():
