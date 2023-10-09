@@ -2,6 +2,7 @@ from flask import Flask, render_template, make_response, json
 from connection import get_sensor_data
 from datetime import datetime
 
+
 app = Flask(__name__)
 
 
@@ -20,7 +21,7 @@ def view_analysis():
 @app.route("/data", methods=["GET", "POST"])
 def data():
     # Fetch the sensor data
-    # data_str = get_sensor_data()
+    # data_str = get_sensor_data()  ##IF YOU WANT TO GET THE DATA FROM FIREBASE
     import json
     data_str = ''
 # Open and read the JSON file
@@ -36,6 +37,18 @@ def data():
     # Extract TVOC and eCO2 values from the latest entry
     latest_TVOC = latest_entry["TVOC"]
     latest_eCO2 = latest_entry["eCO2"]
+    latest_CH4 = latest_entry["CH4"]
+    latest_CH4_data = {}
+
+    if latest_CH4 <= 100:
+        latest_CH4_data["value"] = latest_CH4
+        latest_CH4_data["severity"] = "Low"
+    elif latest_CH4 <= 1000:
+        latest_CH4_data["value"] = latest_CH4
+        latest_CH4_data["severity"] = "Moderate"
+    else:
+        latest_CH4_data["value"] = latest_CH4
+        latest_CH4_data["severity"] = "High"
 
     # Prepare data in the required format: [Timestamp, TVOC, eCO2]
     # Convert the timestamp string to a datetime object
@@ -44,7 +57,7 @@ def data():
     # Convert the datetime object to a timestamp (in milliseconds)
     timestamp_ms = timestamp_dt.timestamp() * 1000
     print(timestamp_ms)
-    data = [timestamp_ms, latest_TVOC, latest_eCO2]
+    data = [timestamp_ms, latest_TVOC, latest_eCO2, latest_CH4_data]
     print(data)
     
 
@@ -55,4 +68,4 @@ def data():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(port=8000,debug=True)

@@ -28,12 +28,14 @@ while True:
         dust = random.uniform(0, 1)  # Random dust value between 0 and 1
         TVOC = random.randint(0, 1000)  # Random TVOC value between 0 and 1000
         eCO2 = random.randint(300, 1000)  # Random eCO2 value between 300 and 1000
+        CH4 = random.randint(0, 2000) # Random CH4 value between 300 and 1000
 
         data[key] = {
             "timestamp": timestamp,
             "Dust": dust,
             "TVOC": TVOC,
-            "eCO2": eCO2
+            "eCO2": eCO2,
+            "CH4":CH4
         }
 
         start_date += timedelta(seconds=1)  # Increment timestamp by 1 second
