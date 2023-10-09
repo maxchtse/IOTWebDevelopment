@@ -144,21 +144,17 @@
             });
           }
     */
+
+
+
+
     // Sample data for gas concentrations and severity levels
-    const gasData = {
-      CH4: { value: 80, severity: 'High' },
-      NO2: { value: 60, severity: 'Moderate' },
-      NO: { value: 30, severity: 'Low' },
-      CO: { value: 45, severity: 'Moderate' },
-      TVOC: { value: 200, severity: 'High' },
-      eCO2: { value: 300, severity: 'High' }
-    };
 
 
-
+    //gaugeData method is only for gauge chart currently CH4
     var TVOCDataPoints = [];
     var ECO2DataPoints = [];
-    function gauge() {
+    function gaugeData() {
 
       fetch('/data')
         .then(response => response.json())
@@ -233,20 +229,15 @@
 
         });
 }
-    function fetchData() {
+
+//lineChart method is only for Line chart currently TVOC and ECO2
+    function lineChart() {
       fetch('/data')
         .then(response => response.json())
         .then(result => {
           var timestamp = result[0];
           var TVOC = result[1];
           var ECO2 = result[2];
-
-          console.log(result)
-          console.log('-----')
-          console.log(gasData.CH4.value)
-
-          ////////
-
 
           // Only add data points that are newer than the last timestamp
           if (timestamp > lastTimestamp) {
@@ -282,8 +273,8 @@
     }
 
     // Poll every second
-    setInterval(fetchData, 1000);
-    setInterval(gauge, 5000);
+    setInterval(lineChart, 1000);
+    setInterval(gaugeData, 5000);
 
 
 
@@ -294,7 +285,7 @@
           renderTo: "data-TVOC",
           defaultSeriesType: "area",
           events: {
-            load: fetchData,
+            load: lineChart,
           },
         },
         title: {
@@ -329,7 +320,7 @@
           renderTo: "data-ECO2",
           defaultSeriesType: "area",
           events: {
-            load: fetchData,
+            load: lineChart,
           },
         },
         title: {
@@ -357,7 +348,7 @@
         ],
       });
     });
-    fetchData();
+    lineChart();
   </script>
 
   <script>
