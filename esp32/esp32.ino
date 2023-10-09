@@ -1,6 +1,7 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
 #include "Adafruit_CCS811.h"
+#include <Arduino.h>
 #include <time.h>
 char timestamp[64] = ""; 
 
@@ -120,6 +121,12 @@ Adafruit_CCS811 ccs;
 
 Adafruit_BME280 bme;
 
+// ===================================
+// === Gas Sensor Initialization ===
+// ===================================
+String mode;
+int CH4, NO, CO;
+float NO2;
 // ====================
 // ==== Setup Logic ====
 // ====================
@@ -134,6 +141,8 @@ void setup() {
   if (!ccs.begin()) {
       Serial.println("Failed to start CCS811!");
       while (1);
+  // Seed for random number generator
+  randomSeed(analogRead(0));
   }
 
   // Calibrate CO2 Sensor: temperature offset
@@ -224,6 +233,9 @@ void loop() {
     strftime(timestamp, sizeof(timestamp), "%Y-%m-%d %H:%M:%S", &timeinfo);
     Serial.println(timestamp);
   }
+  
+  // stimulate gas sensors
+  stimulate_sensors();
 
   // Send data to Firebase
   String jsonData = "{"
@@ -232,6 +244,10 @@ void loop() {
     "\"Pressure\":" + String(hPa) + ","
     "\"Altitude\":" + String(Altitude) + ","
     "\"Humidity\":" + String(Humidity) + ","
+    "\"CH4\":" + String(CH4) + ","
+    "\"NO\":" + String(NO) + ","
+    "\"NO2\":" + String(NO2) + ","
+    "\"CO\":" + String(CO) + ","
     "\"eCO2\":" + String(eCO2) + ","
     "\"TVOC\":" + String(TVOC) + ","
     "\"DustDensity\":" + String(density) +
@@ -249,4 +265,39 @@ void loop() {
   }
   http.end();
   delay(1000);
+}
+
+void stimulate_sensors() {
+  int choice = random(1, 5);  // Randomly choose between 1 or 4
+  if (choice == 1) mode = "danger";
+  else mode = "safe";
+
+  if (mode == "safe") {
+    CH4 = random(0, 10001);
+    NO = random(0, 26);
+    NO2 = random(0, 501) / 1000.0;
+    CO = random(0, 10);
+
+    Serial.println("Safe Ranges:");
+    Serial.print("CH4 (Methane): "); Serial.print(CH4); Serial.println(" ppm");
+    Serial.print("NO (Nitric Oxide): "); Serial.print(NO); Serial.println(" ppm");
+    Serial.print("NO2 (Nitrogen Dioxide): "); Serial.print(NO2); Serial.println(" ppm");
+    Serial.print("CO (Carbon Monoxide): "); Serial.print(CO); Serial.println(" ppm");
+  } else if (mode == "danger") {
+    CH4 = random(10001, 100001);
+    NO = random(26, 101);
+    NO2 = random(501, 10001) / 1000.0;
+    CO = random(10, 101);
+    
+    Serial.println("Danger Ranges:");
+    Serial.print("CH4 (Methane): "); Serial.print(CH4); Serial.println(" ppm");
+    Serial.print("NO (Nitric Oxide): "); Serial.print(NO); Serial.println(" ppm");
+    Serial.print("NO2 (Nitrogen Dioxide): "); Serial.print(NO2); Serial.println(" ppm");
+    Serial.print("CO (Carbon Monoxide): "); Serial.print(CO); Serial.println(" ppm");
+
+    playMelody();
+
+  } else {
+    Serial.println("Invalid input. Please enter 'safe' or 'danger'.");
+  }
 }
