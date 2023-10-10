@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
 
-  <title>Flask App</title>
+  <title>Air Quality Monitoring in Open Mining Sites</title>
 
   <!-- Bootstraps Java Scipts Links -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -33,6 +33,18 @@
   <script src="https://code.highcharts.com/highcharts-more.js"></script>
   <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
   <script type="text/javascript" src="http://pubnub.github.io/eon/lib/eon.js"></script>
+  <style>
+    #gauge-containers {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+    }
+
+    .gauge {
+      width: 300px;
+      height: 200px;
+    }
+  </style>
 </head>
 
 <body>
@@ -42,21 +54,33 @@
   <br />
   <br />
 
-  <div>
-    <!-- Container for the gauge chart -->
-    <div id="gauge-chart-container" style="width: 300px; height: 200px;"></div>
+  <div id="gauge-containers">
+    <div id="ch4-gauge-container" class="gauge"></div>
+    <div id="no2-gauge-container" class="gauge"></div>
+    <div id="no-gauge-container" class="gauge"></div>
+    <div id="co-gauge-container" class="gauge"></div>
   </div>
   <br />
   <br />
   <div class="container-fluid">
     <div class="row">
       <div class="col-5 jumbotron p-2 mx-1">
-        <h1 class="sensor1">TVOC :</h1>
+        <h1 class="point1">TVOC :</h1>
       </div>
       <br />
 
       <div class="col-5 jumbotron p-2 mx-1">
-        <h1 class="sensor2">ECO2 :</h1>
+        <h1 class="point2">ECO2 :</h1>
+      </div>
+      <br />
+
+      <div class="col-5 jumbotron p-2 mx-1">
+        <h1 class="point3">Temperature :</h1>
+      </div>
+      <br />
+
+      <div class="col-5 jumbotron p-2 mx-1">
+        <h1 class="point4">Humidity :</h1>
       </div>
       <br />
     </div>
@@ -80,7 +104,9 @@
     }
 
     #data-TVOC,
-    #data-ECO2 {
+    #data-ECO2,
+    #data-Temperature,
+    #data-Humidity {
       height: 100%;
       /* Ensure the chart container takes 100% height of its parent */
     }
@@ -102,300 +128,30 @@
       <div class="container-fluid" id="data-ECO2"></div>
     </div>
   </div>
+  <br />
+  <br />
+  <br />
 
-  <script>
-    var chartTVOC;
-    var chartECO2;
-    var lastTimestamp = 0; // To keep track of the last fetched data point
-    /*
-          function requestData() {
-            // Ajax call to get the Data from Flask
-            $.get("/data", function (result) {
-              result.forEach((dataPoint) => {
-                var timestamp = result[0];
-                // Only add data points that are newer than the last timestamp
-                if (timestamp > lastTimestamp) {
-                  chartTVOC.series[0].addPoint(
-                    [timestamp, result[1]],
-                    true,
-                    false,
-                  );
-                  chartECO2.series[0].addPoint(
-                    [timestamp, result[2]],
-                    true,
-                    false,
-                  );
-    
-                  // Update the last timestamp
-                  lastTimestamp = timestamp;
-                }
-              });
-    
-              // Update the displayed sensor values
-              $(".sensor1").text(
-                "TVOC : " + Math.round(result[result.length - 1][1]),
-              );
-              $(".sensor2").text(
-                "eCO2 : " + Math.round(result[result.length - 1][2]),
-              );
-    
-              // call requestData again after two seconds
-              setTimeout(requestData, 5000);
-            });
-          }
-    */
+  <div class="container-fluid">
+    <!-- Example row of columns -->
+    <div class="row">
+      <div class="container-fluid" id="data-Temperature"></div>
+    </div>
+  </div>
+  <br />
+  <br />
+  <br />
 
+  <div class="container-fluid">
+    <!-- Example row of columns -->
+    <div class="row">
+      <div class="container-fluid" id="data-Humidity"></div>
+    </div>
+  </div>
 
+  <script src="../static/js/analysis.js"></script>
 
-
-    // Sample data for gas concentrations and severity levels
-
-
-    //gaugeData method is only for gauge chart currently CH4
-    var TVOCDataPoints = [];
-    var ECO2DataPoints = [];
-    function gaugeData() {
-
-      fetch('/data')
-        .then(response => response.json())
-        .then(result => {
-          var CH4 = result[3];
-          /////////
-          Highcharts.chart('gauge-chart-container', {
-            chart: {
-              type: 'solidgauge'
-            },
-            title: {
-              text: 'CH4 (Methane)'
-            },
-            pane: {
-              center: ['50%', '85%'],
-              size: '140%',
-              startAngle: -90,
-              endAngle: 90,
-              background: {
-                backgroundColor: Highcharts.defaultOptions.legend.backgroundColor || '#EEE',
-                innerRadius: '60%',
-                outerRadius: '100%',
-                shape: 'arc'
-              }
-            },
-            tooltip: {
-              enabled: false
-            },
-            yAxis: {
-              stops: [
-                [0.1, '#55BF3B'], // Green (Low)
-                [0.5, '#DDDF0D'], // Yellow (Moderate)
-                [0.9, '#DF5353']  // Red (High)
-              ],
-              lineWidth: 0,
-              tickWidth: 0,
-              minorTickInterval: null,
-              tickAmount: 2,
-              title: {
-                y: -70
-              },
-              labels: {
-                y: 16
-              },
-              min: 0,
-              max: 500
-            },
-            plotOptions: {
-              solidgauge: {
-                dataLabels: {
-                  y: 5,
-                  borderWidth: 0,
-                  useHTML: true
-                }
-              }
-            },
-            series: [{
-              name: 'Gas Concentration',
-              data: [CH4.value],
-              dataLabels: {
-                format:
-                  '<div style="text-align:center">' +
-                  '<span style="font-size:20px">{y}</span><br/>' +
-                  `<span style="font-size:12px;opacity:0.4">${CH4.severity}</span>` +
-                  '</div>'
-              },
-              tooltip: {
-                valueSuffix: ' ppm'
-              }
-            }]
-          });
-
-        });
-}
-
-//lineChart method is only for Line chart currently TVOC and ECO2
-    function lineChart() {
-      fetch('/data')
-        .then(response => response.json())
-        .then(result => {
-          var timestamp = result[0];
-          var TVOC = result[1];
-          var ECO2 = result[2];
-
-          // Only add data points that are newer than the last timestamp
-          if (timestamp > lastTimestamp) {
-            TVOCDataPoints.push({ x: timestamp, y: TVOC });
-            ECO2DataPoints.push({ x: timestamp, y: ECO2 });
-
-            if (TVOCDataPoints.length > 20) {
-              TVOCDataPoints.shift(); // Remove the first element (oldest data point)
-            }
-
-            if (ECO2DataPoints.length > 20) {
-              ECO2DataPoints.shift(); // Remove the first element (oldest data point)
-            }
-
-            // Update the chart with the last 20 data points
-            chartTVOC.xAxis[0].setExtremes(timestamp - 20000, timestamp);
-            chartECO2.xAxis[0].setExtremes(timestamp - 20000, timestamp);
-
-            // Update series data
-            chartTVOC.series[0].setData(TVOCDataPoints);
-            chartECO2.series[0].setData(ECO2DataPoints);
-
-            // Update the last timestamp
-            lastTimestamp = timestamp;
-          }
-          // Update the displayed sensor values
-          $(".sensor1").text("TVOC : " + Math.round(TVOC));
-          $(".sensor2").text("eCO2 : " + Math.round(ECO2));
-        })
-        .catch(error => {
-          console.error('Error fetching data:', error);
-        });
-    }
-
-    // Poll every second
-    setInterval(lineChart, 1000);
-    setInterval(gaugeData, 5000);
-
-
-
-    $(document).ready(function () {
-      // --------------Chart 1 ----------------------------
-      chartTVOC = new Highcharts.Chart({
-        chart: {
-          renderTo: "data-TVOC",
-          defaultSeriesType: "area",
-          events: {
-            load: lineChart,
-          },
-        },
-        title: {
-          text: "TVOC",
-        },
-        xAxis: {
-          type: "datetime",
-          tickPixelInterval: 150,
-          maxZoom: 20 * 1000,
-        },
-        yAxis: {
-          minPadding: 0.2,
-          maxPadding: 0.2,
-          title: {
-            text: "Value",
-            margin: 80,
-          },
-        },
-        series: [
-          {
-            color: "#c23d23",
-            lineColor: "#303030",
-            name: "TVOC",
-            data: [],
-          },
-        ],
-      });
-      // --------------Chart 1 Ends - -----------------
-
-      chartECO2 = new Highcharts.Chart({
-        chart: {
-          renderTo: "data-ECO2",
-          defaultSeriesType: "area",
-          events: {
-            load: lineChart,
-          },
-        },
-        title: {
-          text: "eCO2",
-        },
-        xAxis: {
-          type: "datetime",
-          tickPixelInterval: 150,
-          maxZoom: 20 * 1000,
-        },
-        yAxis: {
-          minPadding: 0.2,
-          maxPadding: 0.2,
-          title: {
-            text: "Value",
-            margin: 80,
-          },
-        },
-        series: [
-          {
-            lineColor: "#1d82b8",
-            name: "eCO2",
-            data: [],
-          },
-        ],
-      });
-    });
-    lineChart();
-  </script>
-
-  <script>
-    class Image {
-      constructor(imgUrl, size) {
-        this.imgUrl = imgUrl;
-        this.size = size;
-      }
-
-      backgroundImage() {
-        console.log("inside function ");
-        // Select the Image
-        var img = document.querySelector(".jumbotron");
-
-        // create Css Text
-        var text =
-          "margin:auto;" +
-          "background-image: url(" +
-          this.imgUrl +
-          ");" +
-          "background-size:cover;" +
-          "opacity:1;" +
-          "background-blend-mode: darken;" +
-          "height: " +
-          this.size +
-          "vh;";
-
-        img.style.cssText = text;
-      }
-
-      centerTitle() {
-        /*
-              Center the Title
-           */
-        var t1 = document.querySelector("#title");
-        t1.classList.add("text-white");
-        t1.classList.add("text-center");
-        t1.classList.add("display-3");
-      }
-    }
-    const imgUrl =
-      "https://media3.giphy.com/media/26tn33aiTi1jkl6H6/giphy.gif";
-    const size = "50";
-    var obj = new Image(imgUrl, size);
-    obj.backgroundImage();
-    obj.centerTitle();
-  </script>
+  
 </body>
 
 </html>
