@@ -1,1 +1,167 @@
-{"62KY0Q7OWKYK0R58LP53": {"timestamp": "2023-10-10T16:02:13+0000", "TVOC": 25, "eCO2": 646, "Temperature": 11, "Humidity": 36, "CH4": 585, "NO2": 413, "NO": 268, "CO": 413}, "DQIU1XJ872HG78IIJ7VD": {"timestamp": "2023-10-10T16:02:14+0000", "TVOC": 678, "eCO2": 986, "Temperature": 75, "Humidity": 39, "CH4": 243, "NO2": 1891, "NO": 78, "CO": 145}, "TSSK224VUF0GTTUJGYA3": {"timestamp": "2023-10-10T16:02:17+0000", "TVOC": 563, "eCO2": 726, "Temperature": 38, "Humidity": 5, "CH4": 1045, "NO2": 126, "NO": 1090, "CO": 1503}, "HAHCGE4Q97BCWB9WND7I": {"timestamp": "2023-10-10T16:02:18+0000", "TVOC": 789, "eCO2": 875, "Temperature": 22, "Humidity": 71, "CH4": 1177, "NO2": 1901, "NO": 1797, "CO": 803}, "N0W3NWP5V4EK0U77NMIN": {"timestamp": "2023-10-10T16:02:21+0000", "TVOC": 747, "eCO2": 938, "Temperature": 28, "Humidity": 23, "CH4": 953, "NO2": 512, "NO": 557, "CO": 135}, "EEZTW4U0XBWAHXTZ7G71": {"timestamp": "2023-10-10T16:02:22+0000", "TVOC": 222, "eCO2": 379, "Temperature": 80, "Humidity": 73, "CH4": 1604, "NO2": 2000, "NO": 855, "CO": 1209}, "PLZBFPWRYZVQQS94FDT6": {"timestamp": "2023-10-10T16:02:25+0000", "TVOC": 236, "eCO2": 851, "Temperature": 91, "Humidity": 66, "CH4": 455, "NO2": 907, "NO": 340, "CO": 1391}, "1O4RF0XW3UQZXN7GLPW3": {"timestamp": "2023-10-10T16:02:26+0000", "TVOC": 224, "eCO2": 487, "Temperature": 66, "Humidity": 20, "CH4": 1395, "NO2": 854, "NO": 1765, "CO": 701}, "WQZBHEHPHX21W3XBSUTM": {"timestamp": "2023-10-10T16:02:29+0000", "TVOC": 8, "eCO2": 963, "Temperature": 3, "Humidity": 33, "CH4": 1818, "NO2": 454, "NO": 575, "CO": 831}, "TAOID8RBUIZOQ2PSAZH8": {"timestamp": "2023-10-10T16:02:30+0000", "TVOC": 627, "eCO2": 455, "Temperature": 96, "Humidity": 38, "CH4": 193, "NO2": 1694, "NO": 931, "CO": 919}, "IWFSMZU2IU4BLG74A6JJ": {"timestamp": "2023-10-10T16:02:33+0000", "TVOC": 809, "eCO2": 797, "Temperature": 34, "Humidity": 31, "CH4": 353, "NO2": 1881, "NO": 1409, "CO": 1687}, "Y5TUXB26OMYEQD5QQ6Z6": {"timestamp": "2023-10-10T16:02:34+0000", "TVOC": 56, "eCO2": 771, "Temperature": 79, "Humidity": 68, "CH4": 968, "NO2": 540, "NO": 1231, "CO": 835}, "BGZQHIHW5S4G371VLG6M": {"timestamp": "2023-10-10T16:02:37+0000", "TVOC": 126, "eCO2": 473, "Temperature": 63, "Humidity": 13, "CH4": 807, "NO2": 874, "NO": 1926, "CO": 1885}, "AZBJV6L8IP7AF2OOBTKH": {"timestamp": "2023-10-10T16:02:38+0000", "TVOC": 377, "eCO2": 724, "Temperature": 71, "Humidity": 9, "CH4": 1937, "NO2": 1851, "NO": 1992, "CO": 185}, "HW5B8Y16ZP1YETA0XTIU": {"timestamp": "2023-10-10T16:02:41+0000", "TVOC": 111, "eCO2": 726, "Temperature": 83, "Humidity": 47, "CH4": 510, "NO2": 625, "NO": 755, "CO": 94}}
+{
+  "62KY0Q7OWKYK0R58LP53": {
+    "timestamp": "2023-10-10T16:02:13+0000",
+    "TVOC": 25,
+    "eCO2": 646,
+    "Temperature": 11,
+    "Humidity": 36,
+    "CH4": 585,
+    "NO2": 413,
+    "NO": 268,
+    "CO": 413
+  },
+  "DQIU1XJ872HG78IIJ7VD": {
+    "timestamp": "2023-10-10T16:02:14+0000",
+    "TVOC": 678,
+    "eCO2": 986,
+    "Temperature": 75,
+    "Humidity": 39,
+    "CH4": 243,
+    "NO2": 1891,
+    "NO": 78,
+    "CO": 145
+  },
+  "TSSK224VUF0GTTUJGYA3": {
+    "timestamp": "2023-10-10T16:02:17+0000",
+    "TVOC": 563,
+    "eCO2": 726,
+    "Temperature": 38,
+    "Humidity": 5,
+    "CH4": 1045,
+    "NO2": 126,
+    "NO": 1090,
+    "CO": 1503
+  },
+  "HAHCGE4Q97BCWB9WND7I": {
+    "timestamp": "2023-10-10T16:02:18+0000",
+    "TVOC": 789,
+    "eCO2": 875,
+    "Temperature": 22,
+    "Humidity": 71,
+    "CH4": 1177,
+    "NO2": 1901,
+    "NO": 1797,
+    "CO": 803
+  },
+  "N0W3NWP5V4EK0U77NMIN": {
+    "timestamp": "2023-10-10T16:02:21+0000",
+    "TVOC": 747,
+    "eCO2": 938,
+    "Temperature": 28,
+    "Humidity": 23,
+    "CH4": 953,
+    "NO2": 512,
+    "NO": 557,
+    "CO": 135
+  },
+  "EEZTW4U0XBWAHXTZ7G71": {
+    "timestamp": "2023-10-10T16:02:22+0000",
+    "TVOC": 222,
+    "eCO2": 379,
+    "Temperature": 80,
+    "Humidity": 73,
+    "CH4": 1604,
+    "NO2": 2000,
+    "NO": 855,
+    "CO": 1209
+  },
+  "PLZBFPWRYZVQQS94FDT6": {
+    "timestamp": "2023-10-10T16:02:25+0000",
+    "TVOC": 236,
+    "eCO2": 851,
+    "Temperature": 91,
+    "Humidity": 66,
+    "CH4": 455,
+    "NO2": 907,
+    "NO": 340,
+    "CO": 1391
+  },
+  "1O4RF0XW3UQZXN7GLPW3": {
+    "timestamp": "2023-10-10T16:02:26+0000",
+    "TVOC": 224,
+    "eCO2": 487,
+    "Temperature": 66,
+    "Humidity": 20,
+    "CH4": 1395,
+    "NO2": 854,
+    "NO": 1765,
+    "CO": 701
+  },
+  "WQZBHEHPHX21W3XBSUTM": {
+    "timestamp": "2023-10-10T16:02:29+0000",
+    "TVOC": 8,
+    "eCO2": 963,
+    "Temperature": 3,
+    "Humidity": 33,
+    "CH4": 1818,
+    "NO2": 454,
+    "NO": 575,
+    "CO": 831
+  },
+  "TAOID8RBUIZOQ2PSAZH8": {
+    "timestamp": "2023-10-10T16:02:30+0000",
+    "TVOC": 627,
+    "eCO2": 455,
+    "Temperature": 96,
+    "Humidity": 38,
+    "CH4": 193,
+    "NO2": 1694,
+    "NO": 931,
+    "CO": 919
+  },
+  "IWFSMZU2IU4BLG74A6JJ": {
+    "timestamp": "2023-10-10T16:02:33+0000",
+    "TVOC": 809,
+    "eCO2": 797,
+    "Temperature": 34,
+    "Humidity": 31,
+    "CH4": 353,
+    "NO2": 1881,
+    "NO": 1409,
+    "CO": 1687
+  },
+  "Y5TUXB26OMYEQD5QQ6Z6": {
+    "timestamp": "2023-10-10T16:02:34+0000",
+    "TVOC": 56,
+    "eCO2": 771,
+    "Temperature": 79,
+    "Humidity": 68,
+    "CH4": 968,
+    "NO2": 540,
+    "NO": 1231,
+    "CO": 835
+  },
+  "BGZQHIHW5S4G371VLG6M": {
+    "timestamp": "2023-10-10T16:02:37+0000",
+    "TVOC": 126,
+    "eCO2": 473,
+    "Temperature": 63,
+    "Humidity": 13,
+    "CH4": 807,
+    "NO2": 874,
+    "NO": 1926,
+    "CO": 1885
+  },
+  "AZBJV6L8IP7AF2OOBTKH": {
+    "timestamp": "2023-10-10T16:02:38+0000",
+    "TVOC": 377,
+    "eCO2": 724,
+    "Temperature": 71,
+    "Humidity": 9,
+    "CH4": 1937,
+    "NO2": 1851,
+    "NO": 1992,
+    "CO": 185
+  },
+  "HW5B8Y16ZP1YETA0XTIU": {
+    "timestamp": "2023-10-10T16:02:41+0000",
+    "TVOC": 111,
+    "eCO2": 726,
+    "Temperature": 83,
+    "Humidity": 47,
+    "CH4": 510,
+    "NO2": 625,
+    "NO": 755,
+    "CO": 94
+  }
+}
