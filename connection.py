@@ -8,12 +8,13 @@ def get_sensor_data():
     response = requests.get(databaseURL + endpoint)
     data = response.json()
 
-    # Save to testDataset/dataFromFirebase.json
-    with open("testDataset/dataFromFirebase.json", "w") as file:
-        json.dump(data, file)
+    # Get the last 10 items based on insertion order
+    if isinstance(data, dict):
+        # Get the last 10 items based on insertion order
+        last_10_items = list(data.items())[-10:]
 
-    return get_test_sensor_data()  # for testing only
     # return data
+    return dict(last_10_items)
 
 
 def get_test_sensor_data():
