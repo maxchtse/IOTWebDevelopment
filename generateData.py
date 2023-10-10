@@ -33,8 +33,7 @@ while True:
 
     while start_date < end_date:
         key = generate_random_key(20)  # Generate a unique key
-        timestamp = start_date.strftime('%Y-%m-%dT%H:%M:%S%z')  # Format the timestamp with timezone offset
-        dust = random.uniform(0, 1)  # Random dust value between 0 and 1
+        timestamp = start_date.strftime('%Y-%m-%dT%H:%M:%S%z')  # Format the timestamp with timezone offset        
         TVOC = random.randint(0, 1000)  # Random TVOC value between 0 and 1000
         eCO2 = random.randint(300, 1000)  # Random eCO2 value between 300 and 1000
         Temperature = random.randint(0, 100)  # Random temperature between 0 and 100
@@ -45,8 +44,7 @@ while True:
         CO = random.randint(0, 2000)  # Random CO value between 300 and 1000
 
         data[key] = {
-            "timestamp": timestamp,
-            "Dust": dust,
+            "timestamp": timestamp,            
             "TVOC": TVOC,
             "eCO2": eCO2,
             "Temperature": Temperature,

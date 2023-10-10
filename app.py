@@ -20,13 +20,15 @@ def view_analysis():
 @app.route("/data", methods=["GET", "POST"])
 def data():
     # Fetch the sensor data
-    # data_str = get_sensor_data()  ##IF YOU WANT TO GET THE DATA FROM FIREBASE
+    data_str = get_sensor_data()  ##IF YOU WANT TO GET THE DATA FROM FIREBASE
     import json
     data_str = ''
 # Open and read the JSON file
-    with open('/Users/hamzausmani/IOT Project/IOTWebDevelopment/generated_testdata/generated_data.json', 'r') as file:
-        # Load JSON data into a Python dictionary
-        data_str = json.load(file)
+
+    #the code below is for testing
+    # with open('/Users/hamzausmani/IOT Project/IOTWebDevelopment/generated_testdata/generated_data.json', 'r') as file:
+    #     # Load JSON data into a Python dictionary
+    #     data_str = json.load(file)
     
     # Extract the entry with the latest timestamp
     latest_entry = max(
@@ -52,6 +54,7 @@ def data():
     latest_NO_data = {}
     latest_CO_data = {}
 
+    #IF YOU WANT THE EXTENT OF THE SEVERITY then change the values over here
     if latest_CH4 <= 100:
         latest_CH4_data["value"] = latest_CH4
         latest_CH4_data["severity"] = "Low"
