@@ -4,8 +4,8 @@ from datetime import datetime
 from dateutil import parser
 
 
-
 app = Flask(__name__)
+
 
 @app.route("/")
 def index():
@@ -24,14 +24,14 @@ def data():
     # Fetch the sensor data
     data_str = get_sensor_data()  ##IF YOU WANT TO GET THE DATA FROM FIREBASE
     import json
-    
-# Open and read the JSON file
 
-    #the code below is for testing
+    # Open and read the JSON file
+
+    # the code below is for testing
     # with open('/Users/hamzausmani/IOT Project/IOTWebDevelopment/generated_testdata/generated_data.json', 'r') as file:
     #     # Load JSON data into a Python dictionary
     #     data_str = json.load(file)
-    
+
     # Extract the entry with the latest timestamp
     print(data_str)
     latest_entry = max(
@@ -50,14 +50,14 @@ def data():
     latest_NO = latest_entry["NO"]
     latest_CO = latest_entry["CO"]
     #
-    
-    #Ranking Severity Levels
+
+    # Ranking Severity Levels
     latest_CH4_data = {}
     latest_NO2_data = {}
     latest_NO_data = {}
     latest_CO_data = {}
 
-    #IF YOU WANT THE EXTENT OF THE SEVERITY then change the values over here
+    # IF YOU WANT THE EXTENT OF THE SEVERITY then change the values over here
     if latest_CH4 <= 100:
         latest_CH4_data["value"] = latest_CH4
         latest_CH4_data["severity"] = "Low"
@@ -67,9 +67,6 @@ def data():
     else:
         latest_CH4_data["value"] = latest_CH4
         latest_CH4_data["severity"] = "High"
-        
-    
-    
 
     if latest_NO2 <= 100:
         latest_NO2_data["value"] = latest_NO2
@@ -81,10 +78,6 @@ def data():
         latest_NO2_data["value"] = latest_NO2
         latest_NO2_data["severity"] = "High"
 
-    
-
-    
-
     if latest_NO <= 100:
         latest_NO_data["value"] = latest_NO
         latest_NO_data["severity"] = "Low"
@@ -94,8 +87,6 @@ def data():
     else:
         latest_NO_data["value"] = latest_NO
         latest_NO_data["severity"] = "High"
-
-    
 
     if latest_CO <= 100:
         latest_CO_data["value"] = latest_CO
@@ -107,25 +98,33 @@ def data():
         latest_CO_data["value"] = latest_CO
         latest_CO_data["severity"] = "High"
 
-    #Ranking Severity Levels    
-
+    # Ranking Severity Levels
 
     # Prepare data in the required format: [Timestamp, TVOC, eCO2]
     # Convert the timestamp string to a datetime object
     timestamp_dt = parser.parse(latest_entry["timestamp"])
-    
+
     # Convert the datetime object to a timestamp (in milliseconds)
     timestamp_ms = timestamp_dt.timestamp() * 1000
     print(timestamp_ms)
-    data = [timestamp_ms, latest_humidity, latest_temperature, latest_TVOC, latest_eCO2, latest_CH4_data, latest_NO2_data, latest_NO_data, latest_CO_data]
+    data = [
+        timestamp_ms,
+        latest_humidity,
+        latest_temperature,
+        latest_TVOC,
+        latest_eCO2,
+        latest_CH4_data,
+        latest_NO2_data,
+        latest_NO_data,
+        latest_CO_data,
+    ]
     print(data)
-    
 
     response = make_response(json.dumps(data))
     response.content_type = "application/json"
-    
+
     return response
 
 
 if __name__ == "__main__":
-    app.run(port=8000,debug=True)
+    app.run(port=8000, debug=True)

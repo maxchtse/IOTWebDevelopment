@@ -4,48 +4,8 @@ var chartTemperature;
 var chartHumidity;
 
 var lastTimestamp = 0; // To keep track of the last fetched data point
-/*
-          function requestData() {
-            // Ajax call to get the Data from Flask
-            $.get("/data", function (result) {
-              result.forEach((dataPoint) => {
-                var timestamp = result[0];
-                // Only add data points that are newer than the last timestamp
-                if (timestamp > lastTimestamp) {
-                  chartTVOC.series[0].addPoint(
-                    [timestamp, result[1]],
-                    true,
-                    false,
-                  );
-                  chartECO2.series[0].addPoint(
-                    [timestamp, result[2]],
-                    true,
-                    false,
-                  );
-    
-                  // Update the last timestamp
-                  lastTimestamp = timestamp;
-                }
-              });
-    
-              // Update the displayed sensor values
-              $(".point1").text(
-                "TVOC : " + Math.round(result[result.length - 1][1]),
-              );
-              $(".point2").text(
-                "eCO2 : " + Math.round(result[result.length - 1][2]),
-              );
-    
-              // call requestData again after two seconds
-              setTimeout(requestData, 5000);
-            });
-          }
-    */
-
 // Sample data for gas concentrations and severity levels
-
 //gaugeData method is only for gauge chart currently CH4
-
 function gaugeData() {
   fetch("/data")
     .then((response) => response.json())
@@ -345,26 +305,40 @@ function gaugeData() {
       // Determine severity levels for each gas
       // Determine severity levels for each gas
       // Determine severity levels for each gas
-const ch4Severity = CH4.severity;
-const no2Severity = NO2.severity;
-const noSeverity = NO.severity;
-const coSeverity = CO.severity;
+      const ch4Severity = CH4.severity;
+      const no2Severity = NO2.severity;
+      const noSeverity = NO.severity;
+      const coSeverity = CO.severity;
 
-// Check the severities and generate the text
-let action = "";
+      // Check the severities and generate the text
+      let action = "";
 
-if (["High"].some(severity => [ch4Severity, no2Severity, noSeverity, coSeverity].includes(severity))) {
-    action = "The gas intensity has reached an extremely high level. Evacuation is strongly advised for immediate safety";
-} else if (["Moderate"].some(severity => [ch4Severity, no2Severity, noSeverity, coSeverity].includes(severity))) {
-    action = "The gas levels are currently moderate. It's advisable to locate the nearest ventilation point to ensure a safer environment";
-} else if (["Low"].some(severity => [ch4Severity, no2Severity, noSeverity, coSeverity].includes(severity))) {
-    action = "The gas intensity is low, but please remain cautious for your safety. Ensure to wear appropriate safety gear, including masks, to protect yourself from potential exposure.";
-}
+      if (
+        ["High"].some((severity) =>
+          [ch4Severity, no2Severity, noSeverity, coSeverity].includes(severity),
+        )
+      ) {
+        action =
+          "The gas intensity has reached an extremely high level. Evacuation is strongly advised for immediate safety";
+      } else if (
+        ["Moderate"].some((severity) =>
+          [ch4Severity, no2Severity, noSeverity, coSeverity].includes(severity),
+        )
+      ) {
+        action =
+          "The gas levels are currently moderate. It's advisable to locate the nearest ventilation point to ensure a safer environment";
+      } else if (
+        ["Low"].some((severity) =>
+          [ch4Severity, no2Severity, noSeverity, coSeverity].includes(severity),
+        )
+      ) {
+        action =
+          "The gas intensity is low, but please remain cautious for your safety. Ensure to wear appropriate safety gear, including masks, to protect yourself from potential exposure.";
+      }
 
-// Display the generative text in the <div> element
-const generativeTextElement = document.getElementById("generative-text");
-generativeTextElement.textContent = `${action}`;
-
+      // Display the generative text in the <div> element
+      const generativeTextElement = document.getElementById("generative-text");
+      generativeTextElement.textContent = `${action}`;
 
       console.log(action);
     });

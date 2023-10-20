@@ -1,172 +1,182 @@
 <!doctype html>
 <html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
 
-<head>
-  <meta charset="utf-8" />
+    <title>Air Quality Monitoring in Open Mining Sites</title>
 
-  <title>Air Quality Monitoring in Open Mining Sites</title>
+    <!-- Bootstraps Java Scipts Links -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
 
-  <!-- Bootstraps Java Scipts Links -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
-  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-    crossorigin="anonymous"></script>
+    <!-- JQuery links  -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-  <!-- JQuery links  -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!--High CHART LIVE  -->
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/highcharts-more.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
 
-  <!--High CHART LIVE  -->
-  <script src="http://code.highcharts.com/highcharts.js"></script>
-  <script src="http://code.highcharts.com/highcharts-more.js"></script>
-  <script src="http://code.highcharts.com/modules/exporting.js"></script>
+    <!--Gauge  -->
 
-  <!--Gauge  -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+    <script
+      type="text/javascript"
+      src="http://pubnub.github.io/eon/lib/eon.js"
+    ></script>
+    <style>
+      #gauge-containers {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 20px;
+      }
 
-  <script src="https://code.highcharts.com/highcharts.js"></script>
-  <script src="https://code.highcharts.com/highcharts-more.js"></script>
-  <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
-  <script type="text/javascript" src="http://pubnub.github.io/eon/lib/eon.js"></script>
-  <style>
-    #gauge-containers {
-      display: flex;
-      justify-content: space-around;
-      margin-top: 20px;
-    }
+      .gauge {
+        width: 300px;
+        height: 200px;
+      }
+      #generative-text {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 25px;
+        font-weight: bold;
+        color: #333; /* Text color */
+        background-color: #f7f7f7; /* Background color */
+        padding: 20px;
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Box shadow for a subtle lift */
+      }
+    </style>
+  </head>
 
-    .gauge {
-      width: 300px;
-      height: 200px;
-    }
-    #generative-text {
-      text-align: center;
-      margin-top: 20px;
-      font-size: 25px;
-      font-weight: bold;
-      color: #333; /* Text color */
-      background-color: #f7f7f7; /* Background color */
-      padding: 20px;
-      border-radius: 10px; /* Rounded corners */
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Box shadow for a subtle lift */
-  }
-  
-  </style>
-</head>
+  <body>
+    <div class="jumbotron">
+      <h1 class="text-center text-white">
+        Monitoring Air Quality in Open Mining Areas
+      </h1>
+    </div>
+    <br />
+    <br />
 
-<body>
-  <div class="jumbotron">
-    <h1 class="text-center text-white">Monitoring Air Quality in Open Mining Areas</h1>
-  </div>
-  <br />
-  <br />
+    <div id="gauge-containers">
+      <div id="ch4-gauge-container" class="gauge"></div>
+      <div id="no2-gauge-container" class="gauge"></div>
+      <div id="no-gauge-container" class="gauge"></div>
+      <div id="co-gauge-container" class="gauge"></div>
+    </div>
+    <br />
+    <br />
+    <div id="generative-text"></div>
 
-  <div id="gauge-containers">
-    <div id="ch4-gauge-container" class="gauge"></div>
-    <div id="no2-gauge-container" class="gauge"></div>
-    <div id="no-gauge-container" class="gauge"></div>
-    <div id="co-gauge-container" class="gauge"></div>
-  </div>
-  <br />
-  <br />
-  <div id="generative-text"></div>
+    <div style="clear: both"></div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-5 jumbotron p-2 mx-1">
+          <h1 class="point1">TVOC :</h1>
+        </div>
+        <br />
 
-  <div style="clear: both;"></div>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-5 jumbotron p-2 mx-1">
-        <h1 class="point1">TVOC :</h1>
+        <div class="col-5 jumbotron p-2 mx-1">
+          <h1 class="point2">ECO2 :</h1>
+        </div>
+        <br />
+
+        <div class="col-5 jumbotron p-2 mx-1">
+          <h1 class="point3">Temperature :</h1>
+        </div>
+        <br />
+
+        <div class="col-5 jumbotron p-2 mx-1">
+          <h1 class="point4">Humidity :</h1>
+        </div>
+        <br />
       </div>
-      <br />
+    </div>
 
-      <div class="col-5 jumbotron p-2 mx-1">
-        <h1 class="point2">ECO2 :</h1>
+    <style>
+      .jumbotron {
+        widows: 150px;
+        height: 220px;
+        justify-content: center;
+      }
+
+      .row {
+        justify-content: center;
+      }
+
+      .container-fluid {
+        margin-top: 20px;
+        height: 400px;
+        /* Adjust the height according to your preference */
+      }
+
+      #data-TVOC,
+      #data-ECO2,
+      #data-Temperature,
+      #data-Humidity {
+        height: 100%;
+        /* Ensure the chart container takes 100% height of its parent */
+      }
+    </style>
+
+    <div class="container-fluid">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="container-fluid" id="data-TVOC"></div>
       </div>
-      <br />
+    </div>
+    <br />
+    <br />
+    <br />
 
-      <div class="col-5 jumbotron p-2 mx-1">
-        <h1 class="point3">Temperature :</h1>
+    <div class="container-fluid">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="container-fluid" id="data-ECO2"></div>
       </div>
-      <br />
+    </div>
+    <br />
+    <br />
+    <br />
 
-      <div class="col-5 jumbotron p-2 mx-1">
-        <h1 class="point4">Humidity :</h1>
+    <div class="container-fluid">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="container-fluid" id="data-Temperature"></div>
       </div>
-      <br />
     </div>
-  </div>
+    <br />
+    <br />
+    <br />
 
-  <style>
-    .jumbotron {
-      widows: 150px;
-      height: 220px;
-      justify-content: center;
-    }
-
-    .row {
-      justify-content: center;
-    }
-
-    .container-fluid {
-      margin-top: 20px;
-      height: 400px;
-      /* Adjust the height according to your preference */
-    }
-
-    #data-TVOC,
-    #data-ECO2,
-    #data-Temperature,
-    #data-Humidity {
-      height: 100%;
-      /* Ensure the chart container takes 100% height of its parent */
-    }
-  </style>
-
-  <div class="container-fluid">
-    <!-- Example row of columns -->
-    <div class="row">
-      <div class="container-fluid" id="data-TVOC"></div>
+    <div class="container-fluid">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="container-fluid" id="data-Humidity"></div>
+      </div>
     </div>
-  </div>
-  <br />
-  <br />
-  <br />
 
-  <div class="container-fluid">
-    <!-- Example row of columns -->
-    <div class="row">
-      <div class="container-fluid" id="data-ECO2"></div>
-    </div>
-  </div>
-  <br />
-  <br />
-  <br />
-
-  <div class="container-fluid">
-    <!-- Example row of columns -->
-    <div class="row">
-      <div class="container-fluid" id="data-Temperature"></div>
-    </div>
-  </div>
-  <br />
-  <br />
-  <br />
-
-  <div class="container-fluid">
-    <!-- Example row of columns -->
-    <div class="row">
-      <div class="container-fluid" id="data-Humidity"></div>
-    </div>
-  </div>
-
-  <script src="../static/js/analysis.js"></script>
-
-  
-</body>
-
+    <script src="../static/js/analysis.js"></script>
+  </body>
 </html>
